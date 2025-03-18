@@ -29,6 +29,11 @@ public class Yarn : MonoBehaviour
         // bitwise operation to check if layer mask is the same
         if(((1 << collision.gameObject.layer) & catchLayer) != 0) {
             Debug.Log("cat caught");
+            
+            // get ammo
+            Shooting shootingComp = FindAnyObjectByType<Shooting>();
+            shootingComp.AddAmmo();
+
             Destroy(collision.gameObject);
         }
     }
