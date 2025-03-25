@@ -9,8 +9,14 @@ public class Shooting : MonoBehaviour
     public GameObject yarnPrefab;
     public GameObject catPrefab;
 
+    [Header("Unity Setup")]
     public float shootForce = 10f;
     public float spawnDistance = 1f;
+
+    [Header("Materials")]
+    public GameObject ammoCapsuleObj;
+    public Material yarnModeMat;
+    public Material catModeMat;
 
     private int ammo = 0;
 
@@ -63,6 +69,10 @@ public class Shooting : MonoBehaviour
     private void OnSwap(InputAction.CallbackContext context)
     {
         inYarnMode = !inYarnMode;
+        
+        // change visual on gun
+        Renderer ammoRenderer = ammoCapsuleObj.GetComponent<Renderer>();
+        ammoRenderer.material = inYarnMode ? yarnModeMat : catModeMat;
     }
 
     public void AddAmmo()

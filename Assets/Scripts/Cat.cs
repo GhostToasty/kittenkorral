@@ -12,17 +12,16 @@ public class Cat : MonoBehaviour
     private Rigidbody rb;
     private Fish fishComp;
 
+    // for spawner functionality
+    private CatSpawner spawner;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         canAttack = true;
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        spawner = FindAnyObjectByType<CatSpawner>();
     }
 
     void OnCollisionEnter(Collision collision)
@@ -49,6 +48,12 @@ public class Cat : MonoBehaviour
     IEnumerator AttackCycle()
     {
         for(int i = 0; i < 3; i++) {
+            // in case the fish dies
+            if(fishComp == null) {
+                StopAttacking();
+                yield break;
+            }
+
             yield return new WaitForSeconds(1f);
             fishComp.TakeDamage(damage);
         }
@@ -67,5 +72,17 @@ public class Cat : MonoBehaviour
 
         rb.useGravity = true;
         rb.isKinematic = false;
+    }
+
+    void OnDestroy()
+    {
+        if(spawner != null) {
+            spawner.RemoveCat(gameObject);
+        }
+    }
+
+    public void RemoveFishComponent()
+    {
+        fishComp = null;
     }
 }

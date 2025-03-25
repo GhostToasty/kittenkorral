@@ -13,17 +13,16 @@ public class Fish : MonoBehaviour
         currentHealth = health;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
 
         if(currentHealth <= 0) {
+            foreach(Transform child in transform) {
+                child.GetComponent<Cat>().RemoveFishComponent();
+                child.SetParent(null);
+            }
+
             Destroy(gameObject);
         }
     }
