@@ -18,12 +18,12 @@ public class PlayerLook : MonoBehaviour
     private InputSystem_Actions actions;
     private InputAction look;
 
-    private void Awake() 
+    void Awake() 
     {
         actions = new InputSystem_Actions();
     }
 
-    private void Update()
+    void Update()
     {
         Look();
     }

@@ -8,6 +8,17 @@ public class Yarn : MonoBehaviour
     public float pullSpeed = 2f;
     public LayerMask catchLayer;
 
+    void Start()
+    {
+        StartCoroutine(DestroyAfterTime());
+    }
+
+    IEnumerator DestroyAfterTime()
+    {
+        yield return new WaitForSeconds(5f);
+        Destroy(gameObject);
+    }
+
     // Update is called once per frame
     void Update()
     {
