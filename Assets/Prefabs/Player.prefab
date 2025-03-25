@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   yarnPrefab: {fileID: 4701912631646043499, guid: a5af046ac97617e4ca298e5e5325b849, type: 3}
-  catPrefab: {fileID: 5897507360388896474, guid: d9bd65cfeb70f3245b95e1330ceb97af, type: 3}
+  catPrefab: {fileID: 137084091899543423, guid: 92dddf26175ecbc44b1e040d90dc2880, type: 3}
   shootForce: 10
   spawnDistance: 1
 --- !u!1 &5440327940216673555
