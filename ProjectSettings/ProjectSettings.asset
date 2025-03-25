@@ -159,7 +159,8 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   androidMinAspectRatio: 1
-  applicationIdentifier: {}
+  applicationIdentifier:
+    Standalone: com.DefaultCompany.Kitten-Korral
   buildNumber:
     Bratwurst: 0
     Standalone: 0
@@ -860,7 +861,7 @@ PlayerSettings:
   qnxGraphicConfPath: 
   apiCompatibilityLevel: 6
   captureStartupLogs: {}
-  activeInputHandler: 0
+  activeInputHandler: 2
   windowsGamepadBackendHint: 0
   cloudProjectId: 0bf1d3a9-305d-4e7e-afaa-ce42fc771064
   framebufferDepthMemorylessMode: 0
