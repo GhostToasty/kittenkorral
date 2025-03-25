@@ -5,22 +5,27 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Player Setup")]
     public float moveSpeed = 5f;
+    public float jumpHeight = 1f;
 
-    public float jumpHeight;
+    [Header("Gravity Setup")]
     public bool usePhysicsGravity;
     public float gravityForce;
     public float settlingForce;
 
+    [Header("Unity Setup")]
     public Transform groundCheck;
     public LayerMask standingMask;
     public float groundCheckRadius;
     public float groundedGracePeriod;
 
+    // for physics checks
     private float yVelocity;
     private bool isGrounded;
     private bool checkForGround;
 
+    // for character controller
     private CharacterController controller;
     private InputSystem_Actions actions;
     private InputAction move;
