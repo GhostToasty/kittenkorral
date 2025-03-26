@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,6 +13,7 @@ public class Shooting : MonoBehaviour
     [Header("Unity Setup")]
     public float shootForce = 10f;
     public float spawnDistance = 1f;
+    public TextMeshProUGUI ammoText;
 
     [Header("Materials")]
     public GameObject ammoCapsuleObj;
@@ -37,6 +39,7 @@ public class Shooting : MonoBehaviour
     void Start()
     {
         cameraTransform = Camera.main.transform;
+        ammoText.text = "Ammo: " + ammo;
     }
 
     private void OnShoot(InputAction.CallbackContext context)
@@ -59,6 +62,7 @@ public class Shooting : MonoBehaviour
                 rb.AddForce(cameraTransform.forward * shootForce, ForceMode.Impulse);
 
                 ammo--;
+                ammoText.text = "Ammo: " + ammo;
             }
             else {
                 Debug.Log("out of ammo");
@@ -78,6 +82,7 @@ public class Shooting : MonoBehaviour
     public void AddAmmo()
     {
         ammo++;
+        ammoText.text = "Ammo: " + ammo;
     }
 
     private void OnEnable()
