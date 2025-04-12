@@ -10,11 +10,12 @@ public class BrownianMotion : MonoBehaviour
     public float frequency = 1f; // increase to make more energetic
     public int octaves = 3; // lower to make less random
     public float moveRadius = 10f;
+    public float noiseScale = 1f;
 
     private NavMeshAgent agent;
     private float timeOffsetX;
     private float timeOffsetZ;
-    private float elapsedTime; 
+    private float elapsedTime = 0f; 
 
     void Start()
     {
@@ -33,7 +34,7 @@ public class BrownianMotion : MonoBehaviour
     void FixedUpdate()
     {
         Vector3 moveDir = GetBrownianDirection(elapsedTime);
-        Vector3 destination = transform.position + moveDir * jitter;
+        Vector3 destination = transform.position + moveDir;
 
         NavMeshHit hit;
         if(NavMesh.SamplePosition(destination, out hit, moveRadius, NavMesh.AllAreas)) {
@@ -51,7 +52,7 @@ public class BrownianMotion : MonoBehaviour
         float x = Fbm(timeOffsetX, t, octaves);
         float z = Fbm(timeOffsetZ, t, octaves);
 
-        Vector3 dir = new Vector3(x, 0f, z).normalized; // * jitter;
+        Vector3 dir = new Vector3(x, 0f, z).normalized * jitter;
         return dir;
     }
 
@@ -60,7 +61,7 @@ public class BrownianMotion : MonoBehaviour
     {
         float result = 0f;
         float amplitude = 0.5f;
-        float frequency = 1f; // not same as global frequency var
+        float frequency = 1f; // noiseScale;
 
         for(int i = 0; i < octaves; i++) {
             result += amplitude * Mathf.PerlinNoise(x * frequency, t * frequency);
@@ -69,5 +70,12 @@ public class BrownianMotion : MonoBehaviour
         }
 
         return result - 0.5f; // center around 0
+    }
+
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, moveRadius);
     }
 }
