@@ -73,9 +73,9 @@ public class BrownianMotion : MonoBehaviour
     }
 
 
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position, moveRadius);
-    }
+    // void OnDrawGizmosSelected()
+    // {
+    //     Gizmos.color = Color.cyan;
+    //     Gizmos.DrawWireSphere(transform.position, moveRadius);
+    // }
 }
