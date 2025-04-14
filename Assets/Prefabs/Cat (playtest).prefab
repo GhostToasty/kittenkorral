@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 4573167252287957435}
   - component: {fileID: 2353870172811943095}
   - component: {fileID: -215512454021089883}
+  - component: {fileID: 7936633846704724791}
+  - component: {fileID: 5738493190852787949}
   m_Layer: 6
   m_Name: Cat (playtest)
   m_TagString: cat
@@ -127,6 +129,46 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 128
+--- !u!114 &7936633846704724791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 137084091899543423}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51a4048156b7ef2439b75aa053859487, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 5
+  jitter: 1
+  frequency: 1
+  octaves: 3
+  moveRadius: 10
+  noiseScale: 1
+--- !u!195 &5738493190852787949
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 137084091899543423}
+  m_Enabled: 0
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 0.5
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &265142208297681992
 GameObject:
   m_ObjectHideFlags: 0
