@@ -7,62 +7,54 @@ public class Cat : MonoBehaviour
 {
     public int damage = 1;
     public LayerMask targetLayer;
+    public LayerMask walkLayer;
 
     private bool canAttack;
 
+    private NavMeshAgent agent;
+    private BrownianMotion motion;
     private Rigidbody rb;
     private Fish fishComp;
 
     // for spawner functionality
     private CatSpawner spawner;
 
-    private NavMeshAgent agent;
-    private BrownianMotion motion;
-    private float moveDelay = 1f;
-    private float timer = 0f;
-    private bool isAttacking;
+    void Awake()
+    {
+        // call in awake so the check gets done first
+        agent = GetComponent<NavMeshAgent>();
+        motion = GetComponent<BrownianMotion>();
+        if(motion.enabled) {
+            motion.enabled = false;
+            agent.enabled = false;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
-        motion = GetComponent<BrownianMotion>();
-
         rb = GetComponent<Rigidbody>();
         canAttack = true;
-        isAttacking = false;
 
         spawner = FindAnyObjectByType<CatSpawner>();
     }
 
-    void Update()
+    void OnCollisionEnter(Collision collision)
     {
-        if(canAttack) {
-            if(motion.enabled) {
-                motion.enabled = false;
-                agent.enabled = false;
-            }
-        }
-        else {
+        // check for collision w/ ground
+        if(((1 << collision.gameObject.layer) & walkLayer) != 0) {
+            canAttack = false;
+
             if(!motion.enabled) {
                 motion.enabled = true;
                 agent.enabled = true;
             }
         }
 
-        timer += Time.deltaTime;
-        if(timer >= moveDelay && !isAttacking) {
-            canAttack = false;
-        }
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
+        // prevent it from re-colliding with enemy
         if(!canAttack) {
             return;
         }
-
-        isAttacking = true;
 
         if(((1 << collision.gameObject.layer) & targetLayer) != 0) {
             Debug.Log("enemy hit");
@@ -97,7 +89,7 @@ public class Cat : MonoBehaviour
 
     void StopAttacking()
     {
-        canAttack = false; // prevent it from re-colliding with enemy
+        canAttack = false; 
         transform.parent = null; 
 
         // might need to re-add later for more of a jump?
@@ -106,8 +98,6 @@ public class Cat : MonoBehaviour
 
         rb.useGravity = true;
         rb.isKinematic = false;
-
-        isAttacking = false;
     }
 
     void OnDestroy()
