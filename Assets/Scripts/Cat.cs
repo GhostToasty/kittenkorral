@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Cat : MonoBehaviour
 {
@@ -15,13 +16,44 @@ public class Cat : MonoBehaviour
     // for spawner functionality
     private CatSpawner spawner;
 
+    private NavMeshAgent agent;
+    private BrownianMotion motion;
+    private float moveDelay = 1f;
+    private float timer = 0f;
+    private bool isAttacking;
+
     // Start is called before the first frame update
     void Start()
     {
+        agent = GetComponent<NavMeshAgent>();
+        motion = GetComponent<BrownianMotion>();
+
         rb = GetComponent<Rigidbody>();
         canAttack = true;
+        isAttacking = false;
 
         spawner = FindAnyObjectByType<CatSpawner>();
+    }
+
+    void Update()
+    {
+        if(canAttack) {
+            if(motion.enabled) {
+                motion.enabled = false;
+                agent.enabled = false;
+            }
+        }
+        else {
+            if(!motion.enabled) {
+                motion.enabled = true;
+                agent.enabled = true;
+            }
+        }
+
+        timer += Time.deltaTime;
+        if(timer >= moveDelay && !isAttacking) {
+            canAttack = false;
+        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -29,6 +61,8 @@ public class Cat : MonoBehaviour
         if(!canAttack) {
             return;
         }
+
+        isAttacking = true;
 
         if(((1 << collision.gameObject.layer) & targetLayer) != 0) {
             Debug.Log("enemy hit");
@@ -72,6 +106,8 @@ public class Cat : MonoBehaviour
 
         rb.useGravity = true;
         rb.isKinematic = false;
+
+        isAttacking = false;
     }
 
     void OnDestroy()
