@@ -11,6 +11,8 @@ public class FishMove : MonoBehaviour
     public LayerMask targetMask;
     public bool shootingType;
 
+    private FishShoot fishShoot;
+
     private Transform target;
     private NavMeshAgent agent;
     private float timer;
@@ -20,6 +22,10 @@ public class FishMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(shootingType) {
+            fishShoot = GetComponent<FishShoot>();
+        }
+
         motion = GetComponent<BrownianMotion>();
         agent = GetComponent<NavMeshAgent>();
         timer = 0f;
@@ -36,7 +42,9 @@ public class FishMove : MonoBehaviour
             if(shootingType) {
                 FaceTarget();
 
-                // do shooting functionality
+                if(!fishShoot.enabled) {
+                    fishShoot.enabled = true;
+                }
             }
 
             if(timer >= updateRate && !shootingType) {
@@ -48,6 +56,11 @@ public class FishMove : MonoBehaviour
             }
         }
         else {
+            // turn shooting off if player not in vision
+            if(shootingType && fishShoot.enabled) {
+                fishShoot.enabled = false;
+            }
+
             if(timer >= updateRate && !motion.enabled) {
                 motion.enabled = true; // resume brownian motion
             }
