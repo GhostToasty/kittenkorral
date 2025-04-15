@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7884365401471791831}
   - component: {fileID: 5388147362542157207}
   - component: {fileID: 4556727195402420103}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -123,7 +123,8 @@ GameObject:
   - component: {fileID: 430857531014667304}
   - component: {fileID: 5323540116724805021}
   - component: {fileID: 2375492724285720630}
-  m_Layer: 0
+  - component: {fileID: 5915751395398339078}
+  m_Layer: 7
   m_Name: ai char (shooting)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -297,6 +298,19 @@ MonoBehaviour:
   shootPoint: {fileID: 791286323121884454}
   shotSpeed: 5
   shootInterval: 1
+--- !u!114 &5915751395398339078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7241713099648555948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca7b61be5ca7d52429a5211356b80a54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 10
 --- !u!1 &8479905905348409782
 GameObject:
   m_ObjectHideFlags: 0
@@ -306,7 +320,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 791286323121884454}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: shoot point
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -12,6 +12,7 @@ public class FishMove : MonoBehaviour
     public bool shootingType;
 
     private FishShoot fishShoot;
+    private FishAttack fishAttack;
 
     private Transform target;
     private NavMeshAgent agent;
@@ -24,6 +25,9 @@ public class FishMove : MonoBehaviour
     {
         if(shootingType) {
             fishShoot = GetComponent<FishShoot>();
+        }
+        else {
+            fishAttack = GetComponent<FishAttack>();
         }
 
         motion = GetComponent<BrownianMotion>();
@@ -49,6 +53,10 @@ public class FishMove : MonoBehaviour
 
             if(timer >= updateRate && !shootingType) {
                 agent.SetDestination(target.position);
+
+                if(!fishAttack.enabled) {
+                    fishAttack.enabled = true;
+                }
             }
 
             if(motion.enabled) {
@@ -59,6 +67,10 @@ public class FishMove : MonoBehaviour
             // turn shooting off if player not in vision
             if(shootingType && fishShoot.enabled) {
                 fishShoot.enabled = false;
+            }
+
+            if(!shootingType && fishAttack.enabled) {
+                fishAttack.enabled = false;
             }
 
             if(timer >= updateRate && !motion.enabled) {
