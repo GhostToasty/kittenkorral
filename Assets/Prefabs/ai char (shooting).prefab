@@ -311,6 +311,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
+  healthPickup: {fileID: 8050654788717505177, guid: e08a830cd44197e48b9b2f07d92163b7, type: 3}
+  dropChance: 0.5
 --- !u!1 &8479905905348409782
 GameObject:
   m_ObjectHideFlags: 0

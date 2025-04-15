@@ -79,9 +79,10 @@ public class Cat : MonoBehaviour
                 StopAttacking();
                 yield break;
             }
-
-            yield return new WaitForSeconds(1f);
-            fishComp.TakeDamage(damage);
+            else {
+                yield return new WaitForSeconds(1f);
+                fishComp.TakeDamage(damage);
+            }
         }
 
         StopAttacking();
@@ -100,15 +101,15 @@ public class Cat : MonoBehaviour
         rb.isKinematic = false;
     }
 
+    public void RemoveFishComponent()
+    {
+        fishComp = null;
+    }
+
     void OnDestroy()
     {
         if(spawner != null) {
             spawner.RemoveCat(gameObject);
         }
-    }
-
-    public void RemoveFishComponent()
-    {
-        fishComp = null;
     }
 }
