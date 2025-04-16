@@ -14,10 +14,11 @@ public class Cat : MonoBehaviour
     private NavMeshAgent agent;
     private BrownianMotion motion;
     private Rigidbody rb;
-    private Fish fishComp;
 
     // for spawner functionality
     private CatSpawner spawner;
+
+    private Coroutine attackCoroutine;
 
     void Awake()
     {
@@ -37,6 +38,13 @@ public class Cat : MonoBehaviour
         canAttack = true;
 
         spawner = FindAnyObjectByType<CatSpawner>();
+
+        Fish.OnFishDied += OnFishDied;
+    }
+
+    void OnFishDied()
+    {
+        InterruptAttack();
     }
 
     void OnCollisionEnter(Collision collision)
@@ -65,13 +73,13 @@ public class Cat : MonoBehaviour
             rb.isKinematic = true; // prevent further physics interactions
 
             transform.parent = collision.transform; // if the fish is moving the cat needs to follow
-            fishComp = collision.gameObject.GetComponent<Fish>();
+            Fish fishComp = collision.gameObject.GetComponent<Fish>();
 
-            StartCoroutine(AttackCycle());
+            attackCoroutine = StartCoroutine(AttackCycle(fishComp));
         }
     }
 
-    IEnumerator AttackCycle()
+    IEnumerator AttackCycle(Fish fishComp)
     {
         for(int i = 0; i < 3; i++) {
             // in case the fish dies
@@ -83,6 +91,18 @@ public class Cat : MonoBehaviour
                 yield return new WaitForSeconds(1f);
                 fishComp.TakeDamage(damage);
             }
+        }
+
+        StopAttacking();
+        attackCoroutine = null;
+    }
+
+    public void InterruptAttack()
+    {
+        // make sure attack cycle is stopped
+        if(attackCoroutine != null) {
+            StopCoroutine(attackCoroutine);
+            attackCoroutine = null;
         }
 
         StopAttacking();
@@ -101,13 +121,11 @@ public class Cat : MonoBehaviour
         rb.isKinematic = false;
     }
 
-    public void RemoveFishComponent()
-    {
-        fishComp = null;
-    }
-
     void OnDestroy()
     {
+        Fish.OnFishDied -= OnFishDied;
+
+        // used for spawner logic -- may not be necessary later
         if(spawner != null) {
             spawner.RemoveCat(gameObject);
         }

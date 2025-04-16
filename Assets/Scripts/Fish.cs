@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Fish : MonoBehaviour
 {
+    public delegate void FishDied(); // tell the other scripts when it dies
+    public static event FishDied OnFishDied;
+
     public int health = 10;
     private int currentHealth;
 
@@ -21,11 +24,7 @@ public class Fish : MonoBehaviour
         currentHealth -= damage;
 
         if(currentHealth <= 0) {
-            foreach(Transform child in transform) {
-                child.GetComponent<Cat>().RemoveFishComponent();
-                child.SetParent(null);
-            }
-
+            OnFishDied.Invoke();
             CheckForPickup();
             Destroy(gameObject);
         }
