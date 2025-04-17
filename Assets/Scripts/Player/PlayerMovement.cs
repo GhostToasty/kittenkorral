@@ -11,10 +11,12 @@ public class PlayerMovement : MonoBehaviour
     public float dashSpeed = 20f;
     public float dashDuration = 0.2f;
 
-    [Header("Gravity Setup")]
+    [Header("Physics Setup")]
     public bool usePhysicsGravity;
     public float gravityForce;
     public float settlingForce;
+    public float bounceStrength = 5f;
+    public float bounceDuration = 0.2f;
 
     [Header("Unity Setup")]
     public Transform groundCheck;
@@ -26,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
     private float yVelocity;
     private bool isGrounded;
     private bool checkForGround;
+    private bool isBouncing;
 
     // for dash logic
     private bool isDashing;
@@ -37,6 +40,8 @@ public class PlayerMovement : MonoBehaviour
     private InputAction move;
     private InputAction jump;
     private InputAction dash;
+
+    private PlayerStats stats;
 
     void Awake()
     {
@@ -51,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        stats = GetComponent<PlayerStats>();
 
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -133,6 +139,33 @@ public class PlayerMovement : MonoBehaviour
         }
 
         isDashing = false;
+    }
+
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if(hit.gameObject.tag == "cactus" && !isBouncing) {
+            Debug.Log("hit cactus");
+            stats.TakeDamage();
+
+            Vector3 bounceDir = hit.normal;
+            // bounceDir.y = 0f; // ignore vertical bounce
+
+            StartCoroutine(BouncePlayer(bounceDir.normalized));
+        }
+    }
+
+    IEnumerator BouncePlayer(Vector3 dir)
+    {
+        isBouncing = true;
+        float elapsedTime = 0f;
+
+        while(elapsedTime < bounceDuration) {
+            controller.Move(dir * (bounceStrength * Time.deltaTime));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        isBouncing = false;
     }
 
     void OnEnable()

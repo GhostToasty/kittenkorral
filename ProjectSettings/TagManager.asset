@@ -6,6 +6,7 @@ TagManager:
   tags:
   - cat
   - pickup
+  - cactus
   layers:
   - Default
   - TransparentFX

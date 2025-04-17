@@ -8,33 +8,47 @@ public class PlayerStats : MonoBehaviour
     public int health = 9;
     private int currentHealth; 
 
+    public int healingAmount = 1;
+
+    public float iFramesDuration = 1f;
+    private bool isInvincible = false;
+
     // Start is called before the first frame update
     void Start()
     {
         currentHealth = health;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void TakeDamage()
     {
+        if(isInvincible) {
+            return; 
+        }
+
+        currentHealth--;
+        // TODO: update health bar (when it gets added)
+        Debug.Log("health: " + currentHealth);
+
         if(currentHealth <= 0) {
             Debug.Log("you died");
             Scene scene = SceneManager.GetActiveScene();
             SceneManager.LoadScene(scene.name);
-            // TODO: replace w/ actual death logic
+            // TODO: replace w/ actual death logic instead of reloading the scene instantly
         }
+
+        StartCoroutine(IFrames());
     }
 
-    public void TakeDamage()
+    IEnumerator IFrames()
     {
-        currentHealth--;
-        // TODO: update health bar (when it gets added)
-        Debug.Log("health: " + currentHealth);
+        isInvincible = true;
+        yield return new WaitForSeconds(iFramesDuration);
+        isInvincible = false;
     }
 
     void Heal()
     {
-        currentHealth++;
+        currentHealth += healingAmount;
         if(currentHealth > health) {
             currentHealth = health; // prevent player from healing more than max health
         }
