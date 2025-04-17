@@ -235,6 +235,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 9
+  healingAmount: 1
+  iFramesDuration: 1
 --- !u!114 &8894239363311292614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,9 +251,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   jumpHeight: 1
+  dashSpeed: 20
+  dashDuration: 0.2
   usePhysicsGravity: 1
   gravityForce: 0
   settlingForce: -2
+  bounceStrength: 10
+  bounceDuration: 0.2
   groundCheck: {fileID: 643306427573529620}
   standingMask:
     serializedVersion: 2
