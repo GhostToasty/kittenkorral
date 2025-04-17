@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Player Setup")]
     public float moveSpeed = 5f;
     public float jumpHeight = 1f;
+    public float dashSpeed = 20f;
+    public float dashDuration = 0.2f;
 
     [Header("Gravity Setup")]
     public bool usePhysicsGravity;
@@ -25,11 +27,16 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded;
     private bool checkForGround;
 
+    // for dash logic
+    private bool isDashing;
+    private Vector3 dashDir;
+
     // for character controller
     private CharacterController controller;
     private InputSystem_Actions actions;
     private InputAction move;
     private InputAction jump;
+    private InputAction dash;
 
     void Awake()
     {
@@ -54,8 +61,10 @@ public class PlayerMovement : MonoBehaviour
         // check for ground
         isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, standingMask);
 
-        Move();
-        Gravity();
+        if(!isDashing) {
+            Move();
+            Gravity();
+        }
     }
 
     private void Move()
@@ -96,6 +105,36 @@ public class PlayerMovement : MonoBehaviour
         checkForGround = true;
     }
 
+    private void Dash(InputAction.CallbackContext context)
+    {
+        if(!isDashing) {
+            // get movement direction
+            Vector2 inputDir = move.ReadValue<Vector2>();
+            Vector3 moveDir = transform.forward * inputDir.y + transform.right * inputDir.x;
+
+            // default dir to forward if no input
+            if(moveDir.sqrMagnitude < 0.01f) {
+                moveDir = transform.forward;
+            }
+
+            dashDir = moveDir.normalized;
+            isDashing = true;
+            StartCoroutine(PerformDash());
+        }
+    }
+
+    private IEnumerator PerformDash()
+    {
+        float elapsedTime = 0f;
+        while(elapsedTime < dashDuration) {
+            controller.Move(dashDir * dashSpeed * Time.deltaTime);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        isDashing = false;
+    }
+
     void OnEnable()
     {
         // input system boilerplate
@@ -105,6 +144,10 @@ public class PlayerMovement : MonoBehaviour
         jump = actions.Player.Jump;
         jump.Enable();
         jump.performed += Jump;
+
+        dash = actions.Player.Dash;
+        dash.Enable();
+        dash.performed += Dash;
     }
 
     void OnDisable()
@@ -112,5 +155,6 @@ public class PlayerMovement : MonoBehaviour
         // input system boilerplate
         move.Disable();
         jump.Disable();
+        dash.Disable();
     }
 }
