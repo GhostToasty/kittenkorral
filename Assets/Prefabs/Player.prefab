@@ -12,13 +12,13 @@ GameObject:
   - component: {fileID: 8478318223356633558}
   - component: {fileID: 5890902825235530396}
   - component: {fileID: 4457074944213142128}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2454195906280051495
 RectTransform:
   m_ObjectHideFlags: 0
@@ -115,12 +115,13 @@ GameObject:
   - component: {fileID: 7103825199515003727}
   - component: {fileID: 3279941241367441263}
   - component: {fileID: 1431785308502588673}
+  - component: {fileID: 7149451586880926089}
   - component: {fileID: 8894239363311292614}
   - component: {fileID: 2559969590728565955}
   - component: {fileID: 374238586519621890}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -221,6 +222,19 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7149451586880926089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2190275685121939379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a58a0c3edb52cf49b0141d1e51dc5c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 9
 --- !u!114 &8894239363311292614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,7 +305,7 @@ GameObject:
   - component: {fileID: 4434750064063669668}
   - component: {fileID: 8429239371742758564}
   - component: {fileID: 699871006489034415}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: reticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -364,7 +378,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 643306427573529620}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ground check
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -397,7 +411,7 @@ GameObject:
   - component: {fileID: 58347079226522694}
   - component: {fileID: 4312853419032840228}
   - component: {fileID: 8299904225704830084}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -490,7 +504,7 @@ GameObject:
   - component: {fileID: 5377076604325756987}
   - component: {fileID: 6479650991547334083}
   - component: {fileID: 3474194365397039163}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: ammo text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -679,13 +693,25 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -5568371526223589888, guid: b8161530c0543c24b955c1061f9550ce, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -391268320553695201, guid: b8161530c0543c24b955c1061f9550ce, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b8161530c0543c24b955c1061f9550ce, type: 3}
       propertyPath: m_Name
       value: gun
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b8161530c0543c24b955c1061f9550ce, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8513859187771203891, guid: b8161530c0543c24b955c1061f9550ce, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
