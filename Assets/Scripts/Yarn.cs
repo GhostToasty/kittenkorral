@@ -43,7 +43,7 @@ public class Yarn : MonoBehaviour
             
             // get ammo
             Shooting shootingComp = FindAnyObjectByType<Shooting>();
-            shootingComp.AddAmmo();
+            shootingComp.AddAmmo(collision.gameObject);
 
             Destroy(collision.gameObject);
         }

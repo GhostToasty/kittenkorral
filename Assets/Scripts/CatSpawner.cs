@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class CatSpawner : MonoBehaviour
 {
-    public GameObject catPrefab;
+    public List<GameObject> catPrefabs;
+    // public GameObject catPrefab;
     public int spawnLimit = 5;
     public float spawnInterval = 1f;
 
@@ -45,7 +46,9 @@ public class CatSpawner : MonoBehaviour
 
         Vector3 spawnPos = new Vector3(x,y,z);
 
-        Instantiate(catPrefab, spawnPos, Quaternion.identity);
+        int index = Random.Range(0, catPrefabs.Count);
+
+        Instantiate(catPrefabs[index], spawnPos, Quaternion.identity);
 
         totalCats++;
         if(totalCats == 20) {

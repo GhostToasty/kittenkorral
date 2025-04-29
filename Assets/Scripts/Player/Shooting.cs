@@ -8,7 +8,7 @@ public class Shooting : MonoBehaviour
 {
     [Header("Prefabs")]
     public GameObject yarnPrefab;
-    public GameObject catPrefab;
+    // public GameObject catPrefab;
 
     [Header("Unity Setup")]
     public float shootForce = 10f;
@@ -21,6 +21,7 @@ public class Shooting : MonoBehaviour
     public Material catModeMat;
 
     private int ammo = 0;
+    private List<GameObject> ammoPool = new List<GameObject>();
 
     private Transform cameraTransform;
 
@@ -56,7 +57,8 @@ public class Shooting : MonoBehaviour
             if(ammo > 0) {
                 Vector3 spawnPos = cameraTransform.position + cameraTransform.forward * spawnDistance;
 
-                GameObject cat = Instantiate(catPrefab, spawnPos, cameraTransform.rotation);
+                GameObject cat = Instantiate(ammoPool[0], spawnPos, cameraTransform.rotation);
+                ammoPool.Remove(ammoPool[0]);
 
                 Rigidbody rb = cat.GetComponent<Rigidbody>();
                 rb.AddForce(cameraTransform.forward * shootForce, ForceMode.Impulse);
@@ -79,10 +81,12 @@ public class Shooting : MonoBehaviour
         ammoRenderer.material = inYarnMode ? yarnModeMat : catModeMat;
     }
 
-    public void AddAmmo()
+    public void AddAmmo(GameObject cat)
     {
         ammo++;
         ammoText.text = "Ammo: " + ammo;
+
+        ammoPool.Add(cat);
     }
 
     private void OnEnable()
