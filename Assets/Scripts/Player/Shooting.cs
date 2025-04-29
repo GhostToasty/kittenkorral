@@ -30,10 +30,12 @@ public class Shooting : MonoBehaviour
     private InputAction swap;
 
     private bool inYarnMode = true;
+    private Pause pause;
 
     void Awake()
     {
         actions = new InputSystem_Actions();
+        pause = GetComponentInChildren<Pause>();
     }
 
     void Start()
@@ -43,7 +45,12 @@ public class Shooting : MonoBehaviour
     }
 
     private void OnShoot(InputAction.CallbackContext context)
-    {        
+    {     
+        // prevent shooting inputs while game is paused
+        if(pause.GetPauseState()) {
+            return;
+        }
+        
         if(inYarnMode) {
             Vector3 spawnPos = cameraTransform.position + cameraTransform.forward * spawnDistance;
 
