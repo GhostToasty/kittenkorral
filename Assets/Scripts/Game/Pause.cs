@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Pause : MonoBehaviour
 {
@@ -37,7 +38,7 @@ public class Pause : MonoBehaviour
 
     public void QuitGame()
     {
-        Debug.Log("quitting game...");
+        SceneManager.LoadScene("MainMenu");
     }
 
     private void OnPause(InputAction.CallbackContext context)
