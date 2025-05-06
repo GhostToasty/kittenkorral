@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class Cat : MonoBehaviour
 {
+    public GameObject catPrefab;
     public int damage = 1;
     public LayerMask targetLayer;
     public LayerMask walkLayer;
