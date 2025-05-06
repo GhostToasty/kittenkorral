@@ -41,6 +41,17 @@ public class Shooting : MonoBehaviour
     {
         cameraTransform = Camera.main.transform;
         ammoText.text = "Ammo: " + ammo;
+
+        Yarn.OnCatCaught += OnCatCaught;
+    }
+
+    void OnCatCaught(GameObject cat)
+    {
+        ammo++;
+        ammoText.text = "Ammo: " + ammo;
+
+        ammoPool.Add(cat);
+        Debug.Log("added " + ammoPool[ammoPool.Count-1]);
     }
 
     private void OnShoot(InputAction.CallbackContext context)
@@ -81,13 +92,13 @@ public class Shooting : MonoBehaviour
         ammoRenderer.material = inYarnMode ? yarnModeMat : catModeMat;
     }
 
-    public void AddAmmo(GameObject cat)
-    {
-        ammo++;
-        ammoText.text = "Ammo: " + ammo;
+    // public void AddAmmo(GameObject cat)
+    // {
+    //     ammo++;
+    //     ammoText.text = "Ammo: " + ammo;
 
-        ammoPool.Add(cat);
-    }
+    //     ammoPool.Add(cat);
+    // }
 
     private void OnEnable()
     {
@@ -105,5 +116,10 @@ public class Shooting : MonoBehaviour
     {
         shoot.Disable();
         swap.Disable();
+    }
+
+    void OnDestroy()
+    {
+        Yarn.OnCatCaught -= OnCatCaught;
     }
 }
