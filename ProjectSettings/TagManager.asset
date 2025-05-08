@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - cat
+  - pickup
   layers:
   - Default
   - TransparentFX
@@ -14,7 +15,7 @@ TagManager:
   - UI
   - Cat
   - Fish
-  - 
+  - Player
   - 
   - 
   - 

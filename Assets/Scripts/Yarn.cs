@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Yarn : MonoBehaviour
 {
+    public delegate void CatCaught(GameObject cat); // tell the other scripts when it dies
+    public static event CatCaught OnCatCaught;
+
     public float catchRadius = 3f;
     public float pullSpeed = 2f;
     public LayerMask catchLayer;
@@ -40,10 +43,10 @@ public class Yarn : MonoBehaviour
         // bitwise operation to check if layer mask is the same
         if(((1 << collision.gameObject.layer) & catchLayer) != 0) {
             Debug.Log("cat caught");
-            
+
+            GameObject cat = collision.gameObject.GetComponent<Cat>().catPrefab;
             // get ammo
-            Shooting shootingComp = FindAnyObjectByType<Shooting>();
-            shootingComp.AddAmmo();
+            OnCatCaught.Invoke(cat);
 
             Destroy(collision.gameObject);
         }

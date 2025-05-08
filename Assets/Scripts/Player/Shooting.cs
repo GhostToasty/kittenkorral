@@ -8,7 +8,7 @@ public class Shooting : MonoBehaviour
 {
     [Header("Prefabs")]
     public GameObject yarnPrefab;
-    public GameObject catPrefab;
+    // public GameObject catPrefab;
 
     [Header("Unity Setup")]
     public float shootForce = 10f;
@@ -21,6 +21,7 @@ public class Shooting : MonoBehaviour
     public Material catModeMat;
 
     private int ammo = 0;
+    private List<GameObject> ammoPool = new List<GameObject>();
 
     private Transform cameraTransform;
 
@@ -30,20 +31,38 @@ public class Shooting : MonoBehaviour
     private InputAction swap;
 
     private bool inYarnMode = true;
+    private Pause pause;
 
     void Awake()
     {
         actions = new InputSystem_Actions();
+        pause = GetComponentInChildren<Pause>();
     }
 
     void Start()
     {
         cameraTransform = Camera.main.transform;
         ammoText.text = "Ammo: " + ammo;
+
+        Yarn.OnCatCaught += OnCatCaught;
+    }
+
+    void OnCatCaught(GameObject cat)
+    {
+        ammo++;
+        ammoText.text = "Ammo: " + ammo;
+
+        ammoPool.Add(cat);
+        Debug.Log("added " + ammoPool[ammoPool.Count-1]);
     }
 
     private void OnShoot(InputAction.CallbackContext context)
-    {        
+    {     
+        // prevent shooting inputs while game is paused
+        if(pause.GetPauseState()) {
+            return;
+        }
+        
         if(inYarnMode) {
             Vector3 spawnPos = cameraTransform.position + cameraTransform.forward * spawnDistance;
 
@@ -56,7 +75,8 @@ public class Shooting : MonoBehaviour
             if(ammo > 0) {
                 Vector3 spawnPos = cameraTransform.position + cameraTransform.forward * spawnDistance;
 
-                GameObject cat = Instantiate(catPrefab, spawnPos, cameraTransform.rotation);
+                GameObject cat = Instantiate(ammoPool[0], spawnPos, cameraTransform.rotation);
+                ammoPool.Remove(ammoPool[0]);
 
                 Rigidbody rb = cat.GetComponent<Rigidbody>();
                 rb.AddForce(cameraTransform.forward * shootForce, ForceMode.Impulse);
@@ -79,11 +99,13 @@ public class Shooting : MonoBehaviour
         ammoRenderer.material = inYarnMode ? yarnModeMat : catModeMat;
     }
 
-    public void AddAmmo()
-    {
-        ammo++;
-        ammoText.text = "Ammo: " + ammo;
-    }
+    // public void AddAmmo(GameObject cat)
+    // {
+    //     ammo++;
+    //     ammoText.text = "Ammo: " + ammo;
+
+    //     ammoPool.Add(cat);
+    // }
 
     private void OnEnable()
     {
@@ -101,5 +123,10 @@ public class Shooting : MonoBehaviour
     {
         shoot.Disable();
         swap.Disable();
+    }
+
+    void OnDestroy()
+    {
+        Yarn.OnCatCaught -= OnCatCaught;
     }
 }
