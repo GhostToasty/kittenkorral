@@ -49,8 +49,11 @@ public class BrownianMotion : MonoBehaviour
 
     Vector3 GetBrownianDirection(float t)
     {
-        float x = Fbm(timeOffsetX, t, octaves);
-        float z = Fbm(timeOffsetZ, t, octaves);
+        // float x = Fbm(timeOffsetX, t, octaves);
+        // float z = Fbm(timeOffsetZ, t, octaves);
+
+        float x = (Mathf.PerlinNoise(timeOffsetX + t, timeOffsetZ) - 0.5f) * 2f;
+        float z = (Mathf.PerlinNoise(timeOffsetZ + t, timeOffsetX) - 0.5f) * 2f;
 
         Vector3 dir = new Vector3(x, 0f, z).normalized * jitter;
         return dir;

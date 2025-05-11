@@ -13,6 +13,8 @@ public class Fish : MonoBehaviour
     public GameObject healthPickup;
     public float dropChance = 0.5f;
 
+    public AudioSource audiosourceFish; //added by Alyssa
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,7 @@ public class Fish : MonoBehaviour
 
         if(currentHealth <= 0) {
             OnFishDied.Invoke();
+            audiosourceFish.Play(); //addded by Alyssa
             CheckForPickup();
             Destroy(gameObject);
         }
