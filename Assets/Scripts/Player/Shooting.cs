@@ -27,8 +27,8 @@ public class Shooting : MonoBehaviour
 
     // input system
     private InputSystem_Actions actions;
-    private InputAction shoot;
-    private InputAction swap;
+    private InputAction shoot; // now refers to specifically shooting cats
+    private InputAction swap; // now refers to shooting yarn just too lazy to change the name rn -- Matthew
 
     private bool inYarnMode = true;
     private Pause pause;
@@ -56,38 +56,52 @@ public class Shooting : MonoBehaviour
         Debug.Log("added " + ammoPool[ammoPool.Count-1]);
     }
 
-    private void OnShoot(InputAction.CallbackContext context)
+    private void OnShootCat(InputAction.CallbackContext context)
     {     
         // prevent shooting inputs while game is paused
         if(pause.GetPauseState()) {
             return;
         }
-        
-        if(inYarnMode) {
+
+        if(ammo > 0) {
             Vector3 spawnPos = cameraTransform.position + cameraTransform.forward * spawnDistance;
 
-            GameObject yarn = Instantiate(yarnPrefab, spawnPos, cameraTransform.rotation);
+            GameObject cat = Instantiate(ammoPool[0], spawnPos, cameraTransform.rotation);
+            ammoPool.Remove(ammoPool[0]);
 
-            Rigidbody rb = yarn.GetComponent<Rigidbody>();
+            Rigidbody rb = cat.GetComponent<Rigidbody>();
             rb.AddForce(cameraTransform.forward * shootForce, ForceMode.Impulse);
+
+            ammo--;
+            ammoText.text = "Ammo: " + ammo;
         }
         else {
-            if(ammo > 0) {
-                Vector3 spawnPos = cameraTransform.position + cameraTransform.forward * spawnDistance;
-
-                GameObject cat = Instantiate(ammoPool[0], spawnPos, cameraTransform.rotation);
-                ammoPool.Remove(ammoPool[0]);
-
-                Rigidbody rb = cat.GetComponent<Rigidbody>();
-                rb.AddForce(cameraTransform.forward * shootForce, ForceMode.Impulse);
-
-                ammo--;
-                ammoText.text = "Ammo: " + ammo;
-            }
-            else {
-                Debug.Log("out of ammo");
-            }
+            // Debug.Log("out of ammo");
+            StartCoroutine(AmmoTextFeedback());
         }
+    }
+
+    // to make your ammo counter more noticeable when trying to shoot while you're out
+    IEnumerator AmmoTextFeedback()
+    {
+        ammoText.color = Color.red;
+        yield return new WaitForSeconds(0.2f);
+        ammoText.color = Color.white;
+    }
+
+    private void OnShootYarn(InputAction.CallbackContext context)
+    {
+        // prevent shooting inputs while game is paused
+        if(pause.GetPauseState()) {
+            return;
+        }
+
+        Vector3 spawnPos = cameraTransform.position + cameraTransform.forward * spawnDistance;
+
+        GameObject yarn = Instantiate(yarnPrefab, spawnPos, cameraTransform.rotation);
+
+        Rigidbody rb = yarn.GetComponent<Rigidbody>();
+        rb.AddForce(cameraTransform.forward * shootForce, ForceMode.Impulse);
     }
 
     private void OnSwap(InputAction.CallbackContext context)
@@ -112,11 +126,11 @@ public class Shooting : MonoBehaviour
         // input system boilerplate
         shoot = actions.Player.Shoot;
         shoot.Enable();
-        shoot.performed += OnShoot;
+        shoot.performed += OnShootCat;
 
         swap = actions.Player.Swap;
         swap.Enable();
-        swap.performed += OnSwap;
+        swap.performed += OnShootYarn;
     }
 
     private void OnDisable()
