@@ -6,6 +6,7 @@ TagManager:
   tags:
   - cat
   - pickup
+  - FishSound
   layers:
   - Default
   - TransparentFX
