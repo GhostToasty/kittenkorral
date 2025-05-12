@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
     public int health = 9;
     private int currentHealth;
+    public Slider healthBar;
 
     public float iFramesDuration = 1f;
     private bool isInvincible = false; 
@@ -17,6 +19,9 @@ public class PlayerStats : MonoBehaviour
     {
         deathUI.SetActive(false);
         currentHealth = health;
+
+        healthBar.maxValue = health;
+        healthBar.value = currentHealth;
     }
 
     public void TakeDamage()
@@ -26,8 +31,7 @@ public class PlayerStats : MonoBehaviour
         }
 
         currentHealth--;
-        // TODO: update health bar (when it gets added)
-        Debug.Log("health: " + currentHealth);
+        healthBar.value = currentHealth;
 
         if(currentHealth <= 0) {
             Debug.Log("you died");
@@ -50,7 +54,7 @@ public class PlayerStats : MonoBehaviour
         if(currentHealth > health) {
             currentHealth = health; // prevent player from healing more than max health
         }
-        Debug.Log("health: " + currentHealth);
+        healthBar.value = currentHealth;
     }
 
     void OnTriggerEnter(Collider other)
