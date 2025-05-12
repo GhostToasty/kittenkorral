@@ -447,6 +447,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 9
+  iFramesDuration: 1
   deathUI: {fileID: 6251375581422664747}
 --- !u!114 &8894239363311292614
 MonoBehaviour:
@@ -465,6 +466,8 @@ MonoBehaviour:
   usePhysicsGravity: 1
   gravityForce: 0
   settlingForce: -2
+  bounceStrength: 8
+  bounceDuration: 0.2
   groundCheck: {fileID: 643306427573529620}
   standingMask:
     serializedVersion: 2

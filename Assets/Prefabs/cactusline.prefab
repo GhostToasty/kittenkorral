@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2192489162532053704}
   m_Layer: 0
   m_Name: cactusline
-  m_TagString: Untagged
+  m_TagString: cactus
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -127,6 +127,10 @@ PrefabInstance:
     - target: {fileID: 2371798575206351548, guid: 2ff2fe1d40d61234ba9503cfe575efc8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547188846597943055, guid: 2ff2fe1d40d61234ba9503cfe575efc8, type: 3}
+      propertyPath: m_TagString
+      value: cactus
       objectReference: {fileID: 0}
     - target: {fileID: 3584285947412337783, guid: 2ff2fe1d40d61234ba9503cfe575efc8, type: 3}
       propertyPath: m_LocalPosition.x

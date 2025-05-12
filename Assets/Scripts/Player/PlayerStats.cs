@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PlayerStats : MonoBehaviour
 {
     public int health = 9;
-    private int currentHealth; 
+    private int currentHealth;
+
+    public float iFramesDuration = 1f;
+    private bool isInvincible = false; 
 
     public GameObject deathUI;
 
@@ -17,20 +19,29 @@ public class PlayerStats : MonoBehaviour
         currentHealth = health;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void TakeDamage()
     {
+        if(isInvincible) {
+            return; 
+        }
+
+        currentHealth--;
+        // TODO: update health bar (when it gets added)
+        Debug.Log("health: " + currentHealth);
+
         if(currentHealth <= 0) {
             Debug.Log("you died");
             Die();
         }
+
+        StartCoroutine(IFrames());
     }
 
-    public void TakeDamage()
+    IEnumerator IFrames()
     {
-        currentHealth--;
-        // TODO: update health bar (when it gets added)
-        Debug.Log("health: " + currentHealth);
+        isInvincible = true;
+        yield return new WaitForSeconds(iFramesDuration);
+        isInvincible = false;
     }
 
     void Heal()
