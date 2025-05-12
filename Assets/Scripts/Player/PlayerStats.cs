@@ -64,6 +64,9 @@ public class PlayerStats : MonoBehaviour
             Heal();
             Destroy(other.gameObject); // destroy the pickup
         }
+        else if(other.tag == "Respawn") {
+            Die();
+        }
     }
 
     void Die()
