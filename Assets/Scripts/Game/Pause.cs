@@ -36,6 +36,12 @@ public class Pause : MonoBehaviour
         }
     }
 
+    public void RetryGame()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
+    }
+
     public void QuitGame()
     {
         Time.timeScale = 1f;

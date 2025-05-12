@@ -8,9 +8,12 @@ public class PlayerStats : MonoBehaviour
     public int health = 9;
     private int currentHealth; 
 
+    public GameObject deathUI;
+
     // Start is called before the first frame update
     void Start()
     {
+        deathUI.SetActive(false);
         currentHealth = health;
     }
 
@@ -19,9 +22,7 @@ public class PlayerStats : MonoBehaviour
     {
         if(currentHealth <= 0) {
             Debug.Log("you died");
-            Scene scene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(scene.name);
-            // TODO: replace w/ actual death logic
+            Die();
         }
     }
 
@@ -48,5 +49,17 @@ public class PlayerStats : MonoBehaviour
             Heal();
             Destroy(other.gameObject); // destroy the pickup
         }
+    }
+
+    void Die()
+    {
+        deathUI.SetActive(true);
+
+        GetComponent<PlayerMovement>().enabled = false;
+        GetComponent<PlayerLook>().enabled = false;
+        GetComponent<Shooting>().enabled = false;
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }
