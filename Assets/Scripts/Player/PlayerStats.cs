@@ -1,35 +1,51 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
     public int health = 9;
-    private int currentHealth; 
+    private int currentHealth;
+    public Slider healthBar;
+
+    public float iFramesDuration = 1f;
+    private bool isInvincible = false; 
+
+    public GameObject deathUI;
 
     // Start is called before the first frame update
     void Start()
     {
+        deathUI.SetActive(false);
         currentHealth = health;
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(currentHealth <= 0) {
-            Debug.Log("you died");
-            Scene scene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(scene.name);
-            // TODO: replace w/ actual death logic
-        }
+        healthBar.maxValue = health;
+        healthBar.value = currentHealth;
     }
 
     public void TakeDamage()
     {
+        if(isInvincible) {
+            return; 
+        }
+
         currentHealth--;
-        // TODO: update health bar (when it gets added)
-        Debug.Log("health: " + currentHealth);
+        healthBar.value = currentHealth;
+
+        if(currentHealth <= 0) {
+            Debug.Log("you died");
+            Die();
+        }
+
+        StartCoroutine(IFrames());
+    }
+
+    IEnumerator IFrames()
+    {
+        isInvincible = true;
+        yield return new WaitForSeconds(iFramesDuration);
+        isInvincible = false;
     }
 
     void Heal()
@@ -38,7 +54,7 @@ public class PlayerStats : MonoBehaviour
         if(currentHealth > health) {
             currentHealth = health; // prevent player from healing more than max health
         }
-        Debug.Log("health: " + currentHealth);
+        healthBar.value = currentHealth;
     }
 
     void OnTriggerEnter(Collider other)
@@ -48,5 +64,17 @@ public class PlayerStats : MonoBehaviour
             Heal();
             Destroy(other.gameObject); // destroy the pickup
         }
+    }
+
+    void Die()
+    {
+        deathUI.SetActive(true);
+
+        GetComponent<PlayerMovement>().enabled = false;
+        GetComponent<PlayerLook>().enabled = false;
+        GetComponent<Shooting>().enabled = false;
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }

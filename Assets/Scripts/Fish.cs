@@ -18,6 +18,11 @@ public class Fish : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(audiosourceFish == null) {
+            GameObject srcObj = GameObject.FindGameObjectWithTag("FishSound");
+            audiosourceFish = srcObj.GetComponent<AudioSource>();
+        }
+        
         currentHealth = health;
     }
 
