@@ -12,7 +12,6 @@ public class CatSound : MonoBehaviour
     public GameObject wood_menu;
 
 
-    private bool yarnMode;
     public int catCount;
     [Range(0.1f, 0.5f)]
     private float pitchChange = 0.2f;
@@ -21,7 +20,6 @@ public class CatSound : MonoBehaviour
     void Start()
     {
         audiosource = GetComponent<AudioSource>();
-        yarnMode = true;
         catCount = 0;
         Yarn.OnCatCaught += catCaught;
     }
@@ -31,12 +29,7 @@ public class CatSound : MonoBehaviour
     {
         if (wood_menu.activeSelf == false)
         {
-            if(Input.GetMouseButtonDown(1))
-            {
-                yarnMode =! yarnMode;
-            }
-
-            if((yarnMode == false && Input.GetMouseButtonDown(0)) && (catCount > 0))
+            if(Input.GetMouseButtonDown(0) && (catCount > 0))
             {
                 audiosource.clip = audiosounds[Random.Range(0, audiosounds.Length)];
                 audiosource.pitch = Random.Range(1 - pitchChange, 1 + pitchChange);

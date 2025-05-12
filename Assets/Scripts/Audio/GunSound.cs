@@ -12,15 +12,12 @@ public class GunSound : MonoBehaviour
     public AudioSource audiosource;
     public GameObject wood_menu;
 
-
-    private bool yarnMode;
     private string sceneName;
     
     // Start is called before the first frame update
     void Start()
     {
         audiosource = GetComponent<AudioSource>();
-        yarnMode = true;
     }
 
     // Update is called once per frame
@@ -29,11 +26,6 @@ public class GunSound : MonoBehaviour
         if (wood_menu.activeSelf == false)
         {
             if(Input.GetMouseButtonDown(1))
-            {
-                yarnMode =! yarnMode;
-            }
-
-            if(yarnMode == true && Input.GetMouseButtonDown(0))
             {
                 audiosource.clip = audiosounds[Random.Range(0, audiosounds.Length)];
                 audiosource.PlayOneShot(audiosource.clip);
