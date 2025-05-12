@@ -266,5 +266,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
-  healthPickup: {fileID: 5338281980903508364, guid: f13f6b1c649e7f343b9f5defcaad375e, type: 3}
+  healthPickup: {fileID: 585325117625766787, guid: d4504caaefccec94a88afb46abfdc149, type: 3}
   dropChance: 0.5
+  audiosourceFish: {fileID: 0}
