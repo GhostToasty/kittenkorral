@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,11 @@ public class PlayerStats : MonoBehaviour
     private bool isInvincible = false; 
 
     public GameObject deathUI;
+
+    public AudioSource audiosourceHit; //added by Alyssa
+    public AudioSource audiosourceHeal; //added by Alyssa
+    public AudioSource audiosourceDie; //added by Alyssa
+    public AudioSource audiosourceBackground; //added by Alyssa
 
     // Start is called before the first frame update
     void Start()
@@ -32,10 +38,15 @@ public class PlayerStats : MonoBehaviour
 
         currentHealth--;
         healthBar.value = currentHealth;
+        
 
         if(currentHealth <= 0) {
             Debug.Log("you died");
             Die();
+        }
+
+        if(currentHealth > 0) {
+            audiosourceHit.Play(); //added by Alyssa
         }
 
         StartCoroutine(IFrames());
@@ -55,6 +66,7 @@ public class PlayerStats : MonoBehaviour
             currentHealth = health; // prevent player from healing more than max health
         }
         healthBar.value = currentHealth;
+        audiosourceHeal.Play(); //added by Alyssa
     }
 
     void OnTriggerEnter(Collider other)
@@ -71,6 +83,8 @@ public class PlayerStats : MonoBehaviour
 
     void Die()
     {
+        audiosourceBackground.Stop(); //added by Alyssa
+        audiosourceDie.Play(); //added by Alyssa
         deathUI.SetActive(true);
 
         GetComponent<PlayerMovement>().enabled = false;

@@ -29,6 +29,7 @@ public class GunSound : MonoBehaviour
             {
                 audiosource.clip = audiosounds[Random.Range(0, audiosounds.Length)];
                 audiosource.PlayOneShot(audiosource.clip);
+                Debug.Log("pop");
             }
         }
             

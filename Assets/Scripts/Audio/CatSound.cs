@@ -35,6 +35,7 @@ public class CatSound : MonoBehaviour
                 audiosource.pitch = Random.Range(1 - pitchChange, 1 + pitchChange);
                 audiosource.PlayOneShot(audiosource.clip);
                 catCount--;
+                Debug.Log("meow");
             }
         }
             
