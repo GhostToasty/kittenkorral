@@ -4741,6 +4741,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: test_pause_menu
       objectReference: {fileID: 0}
+    - target: {fileID: 4731941642944900827, guid: 02204e8de4125c5468af0e59179f3540, type: 3}
+      propertyPath: m_SortingOrder
+      value: 9000
+      objectReference: {fileID: 0}
     - target: {fileID: 4954054664320977545, guid: 02204e8de4125c5468af0e59179f3540, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -4824,6 +4828,10 @@ PrefabInstance:
     - target: {fileID: 7274852020091121243, guid: 02204e8de4125c5468af0e59179f3540, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8969196464837741124, guid: 02204e8de4125c5468af0e59179f3540, type: 3}
+      propertyPath: m_SortingOrder
+      value: 9001
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

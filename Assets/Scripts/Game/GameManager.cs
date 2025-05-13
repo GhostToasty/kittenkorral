@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [Header("UI")]
+    public TextMeshProUGUI enemiesText;
     public GameObject winImage;
     public GameObject returnButton;
 
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour
 
         Fish[] fishInScene = FindObjectsByType<Fish>(FindObjectsSortMode.None);
         totalFish = fishInScene.Length;
+        enemiesText.text = "Enemies: " + totalFish;
 
         Fish.OnFishDied += OnFishDied;
     }
@@ -31,6 +33,7 @@ public class GameManager : MonoBehaviour
     void OnFishDied()
     {
         totalFish--;
+        enemiesText.text = "Enemies: " + totalFish;
 
         if(totalFish == 0) {
             // all normal fish dead -- spawn boss
