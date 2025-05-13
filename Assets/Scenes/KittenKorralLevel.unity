@@ -2554,6 +2554,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2380090736304290618, guid: 6cd449f3118b33342a6d6eb352d7b897, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6961110253390045648, guid: 6cd449f3118b33342a6d6eb352d7b897, type: 3}
       propertyPath: m_LocalPosition.x
       value: 194
@@ -17921,7 +17925,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 11
   m_Type: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.8509804, b: 0.7372549, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
