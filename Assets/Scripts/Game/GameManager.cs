@@ -17,11 +17,15 @@ public class GameManager : MonoBehaviour
 
     private int totalFish;
 
+    private AudioSource audioSource; // plays the sound for winning
+
     // Start is called before the first frame update
     void Start()
     {
         winImage.SetActive(false);
         returnButton.SetActive(false); // just to make sure they are off
+
+        audioSource = GetComponent<AudioSource>();
 
         Fish[] fishInScene = FindObjectsByType<Fish>(FindObjectsSortMode.None);
         totalFish = fishInScene.Length;
@@ -42,6 +46,7 @@ public class GameManager : MonoBehaviour
         else if(totalFish < 0) {
             // boss dead -- end game
             Debug.Log("boss defeated!");
+            audioSource.Play();
             winImage.SetActive(true);
             StartCoroutine(PauseOnEnd());
         }
