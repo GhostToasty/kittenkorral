@@ -8,6 +8,7 @@ public class CatSpawner : MonoBehaviour
     // public GameObject catPrefab;
     public int spawnLimit = 5;
     public float spawnInterval = 1f;
+    public int spawnCap = 10;
 
     private List<GameObject> catsInTrigger = new List<GameObject>();
     private Collider spawnTrigger;
@@ -51,7 +52,7 @@ public class CatSpawner : MonoBehaviour
         Instantiate(catPrefabs[index], spawnPos, Quaternion.identity);
 
         totalCats++;
-        if(totalCats == 20) {
+        if(totalCats == spawnCap) {
             canSpawn = false; // just to prevent too many cats from existing
         }
     }

@@ -38,7 +38,22 @@ public class Cat : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         canAttack = true;
 
-        spawner = FindAnyObjectByType<CatSpawner>();
+        // spawner = FindAnyObjectByType<CatSpawner>();
+        
+        // Find the closest CatSpawner
+        float closestDistance = Mathf.Infinity;
+        CatSpawner[] allSpawners = FindObjectsByType<CatSpawner>(FindObjectsSortMode.None);
+        Vector3 currentPosition = transform.position;
+
+        foreach (CatSpawner s in allSpawners)
+        {
+            float distance = Vector3.Distance(currentPosition, s.transform.position);
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                spawner = s;
+            }
+        }
 
         Fish.OnFishDied += OnFishDied;
     }
