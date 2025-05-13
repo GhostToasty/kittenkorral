@@ -15,6 +15,7 @@ public class PlayerStats : MonoBehaviour
 
     public GameObject deathUI;
 
+    [Header("SFX")]
     public AudioSource audiosourceHit; //added by Alyssa
     public AudioSource audiosourceHeal; //added by Alyssa
     public AudioSource audiosourceDie; //added by Alyssa

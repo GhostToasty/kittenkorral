@@ -33,6 +33,10 @@ public class Shooting : MonoBehaviour
     private bool inYarnMode = true;
     private Pause pause;
 
+    // sfx
+    private GunSound yarnSound;
+    private CatSound catSound;
+
     void Awake()
     {
         actions = new InputSystem_Actions();
@@ -41,6 +45,9 @@ public class Shooting : MonoBehaviour
 
     void Start()
     {
+        yarnSound = GetComponentInChildren<GunSound>();
+        catSound = GetComponentInChildren<CatSound>();
+
         cameraTransform = Camera.main.transform;
         ammoText.text = "Ammo: " + ammo;
 
@@ -74,6 +81,8 @@ public class Shooting : MonoBehaviour
 
             ammo--;
             ammoText.text = "Ammo: " + ammo;
+
+            catSound.PlayCatSound();
         }
         else {
             // Debug.Log("out of ammo");
@@ -102,6 +111,8 @@ public class Shooting : MonoBehaviour
 
         Rigidbody rb = yarn.GetComponent<Rigidbody>();
         rb.AddForce(cameraTransform.forward * shootForce, ForceMode.Impulse);
+
+        yarnSound.PlayYarnSound();
     }
 
     private void OnSwap(InputAction.CallbackContext context)
