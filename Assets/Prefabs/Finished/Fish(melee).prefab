@@ -53,15 +53,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bd34ebaf2ad7bf146aae5828daa3ddc4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 222
+      value: 212.65
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bd34ebaf2ad7bf146aae5828daa3ddc4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.1033752
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bd34ebaf2ad7bf146aae5828daa3ddc4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 179.2
+      value: 244.13
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bd34ebaf2ad7bf146aae5828daa3ddc4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -223,7 +223,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   updateRate: 0.2
   detectionRadius: 10
-  fov: 60
+  fov: 120
   targetMask:
     serializedVersion: 2
     m_Bits: 256
