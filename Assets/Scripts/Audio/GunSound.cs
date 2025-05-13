@@ -10,29 +10,36 @@ public class GunSound : MonoBehaviour
 
     public AudioClip[] audiosounds;
     public AudioSource audiosource;
-    public GameObject wood_menu;
+    // public GameObject wood_menu;
 
-    private string sceneName;
+    // private string sceneName;
     
-    // Start is called before the first frame update
-    void Start()
-    {
-        audiosource = GetComponent<AudioSource>();
-    }
+    // // Start is called before the first frame update
+    // void Start()
+    // {
+    //     audiosource = GetComponent<AudioSource>();
+    // }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (wood_menu.activeSelf == false)
-        {
-            if(Input.GetMouseButtonDown(1))
-            {
-                audiosource.clip = audiosounds[Random.Range(0, audiosounds.Length)];
-                audiosource.PlayOneShot(audiosource.clip);
-                Debug.Log("pop");
-            }
-        }
+    // // Update is called once per frame
+    // void Update()
+    // {
+    //     if (wood_menu.activeSelf == false)
+    //     {
+    //         if(Input.GetMouseButtonDown(1))
+    //         {
+    //             audiosource.clip = audiosounds[Random.Range(0, audiosounds.Length)];
+    //             audiosource.PlayOneShot(audiosource.clip);
+    //             Debug.Log("pop");
+    //         }
+    //     }
             
+    // }
+
+    public void PlayYarnSound()
+    {
+        audiosource.clip = audiosounds[Random.Range(0, audiosounds.Length)];
+        audiosource.PlayOneShot(audiosource.clip);
+        Debug.Log("pop");
     }
 
 }

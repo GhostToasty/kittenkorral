@@ -9,42 +9,45 @@ public class CatSound : MonoBehaviour
 
     public AudioClip[] audiosounds;
     public AudioSource audiosource;
-    public GameObject wood_menu;
+    // public GameObject wood_menu;
 
 
-    public int catCount;
+    // public int catCount;
     [Range(0.1f, 0.5f)]
     private float pitchChange = 0.2f;
     
-    // Start is called before the first frame update
-    void Start()
-    {
-        audiosource = GetComponent<AudioSource>();
-        catCount = 0;
-        Yarn.OnCatCaught += catCaught;
-    }
+    // // Start is called before the first frame update
+    // void Start()
+    // {
+    //     audiosource = GetComponent<AudioSource>();
+    //     catCount = 0;
+    //     Yarn.OnCatCaught += catCaught;
+    // }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (wood_menu.activeSelf == false)
-        {
-            if(Input.GetMouseButtonDown(0) && (catCount > 0))
-            {
-                audiosource.clip = audiosounds[Random.Range(0, audiosounds.Length)];
-                audiosource.pitch = Random.Range(1 - pitchChange, 1 + pitchChange);
-                audiosource.PlayOneShot(audiosource.clip);
-                catCount--;
-                Debug.Log("meow");
-            }
-        }
+    // // Update is called once per frame
+    // void Update()
+    // {
+    //     if (wood_menu.activeSelf == false)
+    //     {
+    //         if(Input.GetMouseButtonDown(0) && (catCount > 0))
+    //         {
+                
+    //         }
+    //     }
             
-    }
+    // }
 
-    private void catCaught(GameObject cat)
+    // private void catCaught(GameObject cat)
+    // {
+    //     catCount++;
+    //     Debug.Log(catCount);
+    // }
+
+    public void PlayCatSound()
     {
-        catCount++;
-        Debug.Log(catCount);
+        audiosource.clip = audiosounds[Random.Range(0, audiosounds.Length)];
+        audiosource.pitch = Random.Range(1 - pitchChange, 1 + pitchChange);
+        audiosource.PlayOneShot(audiosource.clip);
+        Debug.Log("meow");
     }
-
 }
